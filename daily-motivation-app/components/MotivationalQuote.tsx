@@ -1,5 +1,14 @@
-import { Button, Text, View, StyleSheet, ImageBackground } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 export default function MotivationalQuote() {
   let backgroundImage = require("../assets/images/mobile-bg.jpeg");
@@ -58,13 +67,16 @@ export default function MotivationalQuote() {
   ];
 
   // Note: styling uses camel casing
+  //   Todo: Seperate authors from quotes in order to app
 
   function getRandomQuote() {
     return quotes[Math.floor(Math.random() * quotes.length)];
   }
 
+  const [quote, setQuote] = useState(getRandomQuote());
+
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={styles.wrapper}>
       <SafeAreaView style={styles.container} edges={["left", "right"]}>
         <ImageBackground
           source={require("../assets/images/mobile-bg.jpeg")}
@@ -72,8 +84,19 @@ export default function MotivationalQuote() {
           style={styles.image}
         >
           {/* <View style={styles.container}> */}
-          <Text style={styles.text}> {getRandomQuote()}</Text>
-          <Button title="New quote" onPress={() => alert(getRandomQuote())} />
+          <Text style={styles.text}> {quote}</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setQuote(getRandomQuote)}
+          >
+            <Text style={styles.text}>Get new quote</Text>
+          </TouchableOpacity>
+          {/* <Button
+            color={"red"}
+            
+            title="New quote"
+            onPress={() => setQuote(getRandomQuote)}
+          /> */}
           {/* </View> */}
         </ImageBackground>
       </SafeAreaView>
@@ -81,11 +104,19 @@ export default function MotivationalQuote() {
   );
 }
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    width: "100%",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+    width: "100%",
     // backgroundImage: "url('https://source.unsplash.com/1600x900/?nature')",
   },
   image: {
@@ -97,5 +128,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     backgroundColor: "rgba(0,0,0,0.5)",
+    textAlign: "center",
+  },
+
+  button: {
+    backgroundColor: "red",
+    marginTop: 20,
+    width: 200,
   },
 });
