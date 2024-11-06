@@ -10,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      {/* <Text>Edit app/index.tsx to edit this screen.</Text> */}
       {/* <Text>Motivational quote placeholder</Text> */}
       <MotivationalQuote />
     </View>
