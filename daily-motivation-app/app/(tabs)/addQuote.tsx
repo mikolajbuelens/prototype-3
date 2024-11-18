@@ -32,12 +32,10 @@ export default function AddQuote() {
 
   return (
     // <View style={styles.container}>
-   <LinearGradient
-          colors={["#293e6a", "#293e6a", "#23355b"]}
-          style={styles.backgroundGradient}
-        >
-
-
+    <LinearGradient
+      colors={["#293e6a", "#293e6a", "#23355b"]}
+      style={styles.backgroundGradient}
+    >
       {/* Form for adding a quote */}
       <TextInput
         style={styles.input}
@@ -60,8 +58,8 @@ export default function AddQuote() {
           </Text>
         </View>
       )}
-      </LinearGradient>
-  );  
+    </LinearGradient>
+  );
 }
 
 const styles = StyleSheet.create({
