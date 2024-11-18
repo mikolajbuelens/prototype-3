@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import AddQuote from "./(tabs)/addQuote";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function TabLayout() {
   const [loaded] = useFonts({
@@ -23,11 +25,32 @@ export default function TabLayout() {
     // Todo: find a way to hide the top header, doesn't seem to work with the options prop?
     // Todo: change color of tab bar (transparant)
 
-    <Tabs>
-      <Tabs.Screen name="test" options={{ headerShown: false }} />
-      <Tabs.Screen name="(home)" />
-      <Tabs.Screen name="settings" />
-      <Stack.Screen name="hideHeader" options={{ headerShown: false }} />
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "transparent",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+        },
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "gray",
+        tabBarShowLabel: false,
+      }}
+    >
+      {/* <Tabs.Screen name="test"  /> */}
+
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          // tabBarIcon: ({ color, focused }) => (
+          //   // <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          // ),
+        }}
+      />
     </Tabs>
   );
 }

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
@@ -68,11 +69,12 @@ export default function MotivationalQuote() {
   // ];
 
   // Note: styling uses camel casing
-  //   Todo: Seperate authors from quotes in order to app
+  //   DONE: Seperate authors from quotes in order to app
 
   // let quotes: { text: string }[] = [];
   const [quotes, setQuotes] = useState<{ quote: string; author: string }[]>([]);
   const [randomQuote, setRandomQuote] = useState({ text: "", author: "" });
+  const [fadeAnim] = useState(new Animated.Value(0)); // Initial opacity value of 0 (hidden)
 
   function getRandomQuote() {
     if (quotes.length > 0) {
@@ -104,13 +106,36 @@ export default function MotivationalQuote() {
       });
   }
 
+  // const fadeAnim = new Animated.Value(0);
+  // doesn't seem to work
+  const fadeInOutAnimation = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start(() => {
+      getRandomQuote();
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    });
+  };
+
   useEffect(() => {
     fetchQuote();
   }, []);
 
+  // useEffect(() => {
+  //   if (randomQuote.text) {
+  //   }
+  // }, [randomQuote]);
+
   useEffect(() => {
     if (quotes.length > 0) {
       getRandomQuote();
+      fadeInOutAnimation();
     }
   }, [quotes]);
 
@@ -178,12 +203,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   button: {
-    backgroundColor: "grey",
+    backgroundColor: "#2196F3",
     marginTop: 20,
     // width: 200,
     // width: "40%",
     padding: 10,
     alignItems: "center",
+    borderRadius: 8,
+    color: "white",
     // flex: 1,
     // display: "flex",
     // justifyContent: "center",
@@ -194,11 +221,12 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "90%",
     maxWidth: 400,
-    height: "70%",
-    minHeight: 200,
+    maxHeight: "70%",
+    // height: "20%",
+    // minHeight: 100,
     backgroundColor: "white",
     borderRadius: 8,
     padding: 20,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
 });
