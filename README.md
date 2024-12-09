@@ -1,5 +1,7 @@
 <h1 align="center">Expert lab - Prototype 3</h1>
 
+#### link to API repo: https://github.com/mikolajbuelens/prototype-3-api
+
 ## 📜 Description
 Daily motivation application built with React Native that displays a random motivational quote along with it's author each time a button is pressed
 
